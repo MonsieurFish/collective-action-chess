@@ -1,0 +1,5 @@
+python-chess>=1.999
+numpy>=1.26
+streamlit>=1.30
+anthropic>=0.20
+pandas>=2.0

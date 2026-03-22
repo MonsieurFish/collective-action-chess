@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+*.pkl
+.DS_Store
+*.pdf
+survival_chess/saved_models/
