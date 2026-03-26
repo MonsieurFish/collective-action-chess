@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collective Action Chess</title>
+  <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+  <!-- ═══ Landing View ═══ -->
+  <div id="landing-view" class="view active">
+    <div class="landing-box">
+      <h1>Collective Action Chess</h1>
+      <p class="subtitle">Pieces vote. You decide.</p>
+      <input type="text" id="player-name" placeholder="Your name" maxlength="20" autocomplete="off">
+      <div class="landing-buttons">
+        <button id="create-btn" class="btn btn-primary">Create Room</button>
+        <div class="join-row">
+          <input type="text" id="join-code" placeholder="Room code" maxlength="4" autocomplete="off">
+          <button id="join-btn" class="btn btn-secondary">Join</button>
+        </div>
+      </div>
+      <div id="landing-error" class="error-msg"></div>
+    </div>
+  </div>
+
+  <!-- ═══ Lobby View ═══ -->
+  <div id="lobby-view" class="view">
+    <div class="lobby-box">
+      <h2>Room: <span id="room-code" class="room-code"></span></h2>
+      <p class="share-hint">Share this code with other players</p>
+
+      <div class="sides-container">
+        <div class="side-col">
+          <h3>White</h3>
+          <div id="white-players" class="player-list"></div>
+          <button class="btn btn-side" data-side="white">Join White</button>
+        </div>
+        <div class="side-col">
+          <h3>Black</h3>
+          <div id="black-players" class="player-list"></div>
+          <button class="btn btn-side" data-side="black">Join Black</button>
+        </div>
+      </div>
+
+      <div id="spectators-lobby"></div>
+      <button id="start-btn" class="btn btn-primary" style="display:none">Start Game</button>
+      <div id="lobby-error" class="error-msg"></div>
+    </div>
+  </div>
+
+  <!-- ═══ Game View ═══ -->
+  <div id="game-view" class="view">
+    <div id="info-bar">
+      <span id="turn-info"></span>
+      <span id="phase-info"></span>
+      <span id="assignment-info"></span>
+    </div>
+
+    <div id="game-container">
+      <div id="board-wrapper">
+        <div id="board" style="width: 480px;"></div>
+      </div>
+
+      <div id="side-panel">
+        <!-- Vote Panel -->
+        <div id="vote-panel" class="panel" style="display:none">
+          <h3>Vote: which piece should move?</h3>
+          <div id="vote-weight-info"></div>
+          <div id="vote-list"></div>
+          <button id="vote-submit-btn" class="btn btn-primary" disabled>Submit Vote</button>
+          <div id="vote-status"></div>
+        </div>
+
+        <!-- Move Panel -->
+        <div id="move-panel" class="panel" style="display:none">
+          <h3 id="move-panel-title"></h3>
+          <p id="move-panel-desc"></p>
+        </div>
+
+        <!-- Waiting Panel -->
+        <div id="waiting-panel" class="panel" style="display:none">
+          <h3 id="waiting-title"></h3>
+          <p id="waiting-desc"></p>
+        </div>
+
+        <!-- Players Panel -->
+        <div id="players-panel" class="panel">
+          <h3>Players</h3>
+          <div id="game-players"></div>
+        </div>
+
+        <!-- Move History -->
+        <div id="history-panel" class="panel">
+          <h3>Moves</h3>
+          <div id="move-history"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ Game Over Overlay ═══ -->
+  <div id="game-over-overlay" style="display:none">
+    <div class="game-over-box">
+      <h2 id="game-over-title"></h2>
+      <p id="game-over-reason"></p>
+      <button id="back-to-lobby-btn" class="btn btn-primary">Back to Lobby</button>
+    </div>
+  </div>
+
+  <!-- ═══ Promotion Modal ═══ -->
+  <div id="promotion-modal" style="display:none">
+    <div class="promotion-box">
+      <h3>Promote to:</h3>
+      <div class="promotion-choices">
+        <button class="promo-btn" data-piece="q">&#9813; Queen</button>
+        <button class="promo-btn" data-piece="r">&#9814; Rook</button>
+        <button class="promo-btn" data-piece="b">&#9815; Bishop</button>
+        <button class="promo-btn" data-piece="n">&#9816; Knight</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
+  <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+  <script src="/static/app.js"></script>
+</body>
+</html>
